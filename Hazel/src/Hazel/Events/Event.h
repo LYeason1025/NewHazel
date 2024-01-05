@@ -1,10 +1,7 @@
 #pragma once
 
-#include <sstream>
-#include <functional>
-#include <iostream>
-
-#include "../Core.h"
+#include <hzpch.h>
+#include <Hazel/Core.h>
 
 
 namespace Hazel {
@@ -69,9 +66,10 @@ namespace Hazel {
 			if (m_Event.GetEventType()==T::GetStaticType())
 			{
 				m_Event.Handled |= func(static_cast<T&>(m_Event));
+				/*m_Event.Handled |= func(*(T*)&m_Event);*/
 				return true;
 			}
-			return false
+			return false;
 		}
 
 	private:

@@ -1,6 +1,5 @@
 #pragma once
-
-#include"Event.h"
+#include "Hazel/Events/Event.h"
 
 namespace Hazel {
 	class  WindowResizeEvent :public Event

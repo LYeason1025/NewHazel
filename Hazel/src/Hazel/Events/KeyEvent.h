@@ -1,6 +1,6 @@
 #pragma once
-#include "Event.h"
-#include "../Core/KeyCode.h"
+#include "Hazel/Events/Event.h"
+#include "Hazel/Core/KeyCode.h"
 
 namespace Hazel {
 	class  KeyEvent:public Event
@@ -29,7 +29,6 @@ namespace Hazel {
 			 ss << "KeyPressedEvent: " << m_KeyCode << " (repeat = " << m_IsRepeat << ")";
 			 return ss.str();
 		 }
-
 
 		 EVENT_CLASS_TYPE(KeyPressed);
 	private:

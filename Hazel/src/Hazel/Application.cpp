@@ -1,10 +1,19 @@
 #include"hzpch.h"
+#include <glad/glad.h>
 #include "Application.h"
 #include "Log.h"
 //#include <GLFW/glfw3.h>
-#include <glad/glad.h>
+
+#include "Hazel/Core/TimeStep.h"
 #include "Events/ApplicationEvent.h"
 #include "Hazel/Input.h"
+
+#include "Renderer/Renderer.h"
+
+
+#include <GLFW/glfw3.h>
+
+
 
 
 
@@ -13,12 +22,23 @@ namespace Hazel{
 
 	Application* Application::s_Instance = nullptr;
 
+
 	Application::Application()
 	{
 		HZ_CORE_ASSERT(!s_Instance,"Application Already Exists")
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
 		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverLay(m_ImGuiLayer);
+
+		//Vertex Array 
+		//Vertex Buffer
+		//Index Buffer
+		//Shader
+		
+
 	}
 
 	Application::~Application()
@@ -29,16 +49,23 @@ namespace Hazel{
 	void Application::Run()
 	{
 		while (m_Running) {
-			glClearColor(1, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			// 计算两帧间隔时间
+			float time = (float)glfwGetTime();	// 是从应用开始计算总共的时间
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
+		
 
 			for (Layer* layer : m_LayerStack)
+				layer->OnUpdate(timestep);
+
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
 			{
-				layer->OnUpdate();
+				layer->OnImGuiRender();
 			}
 
-			/*auto [x, y] = Input::GetMousePosition();
-			HZ_CORE_TRACE("{0}, {1}", x, y);*/
+			m_ImGuiLayer->End();
+
 
 			m_Window->OnUpdate();
 		};

@@ -21,14 +21,14 @@ namespace Hazel {
 	};
 }
 
-#define HZ_CORE_ERRO(...)	::Hazel::Log::GetCoreLogger()->erro(__VA_ARGS__)
+#define HZ_CORE_ERRO(...)	::Hazel::Log::GetCoreLogger()->error(__VA_ARGS__)
 #define HZ_CORE_WARN(...)	::Hazel::Log::GetCoreLogger()->warn(__VA_ARGS__)
 #define HZ_CORE_INFO(...)	::Hazel::Log::GetCoreLogger()->info(__VA_ARGS__)
 #define HZ_CORE_TRACE(...)	::Hazel::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define HZ_CORE_FATAL(...)	::Hazel::Log::GetCoreLogger()->fatal(__VA_ARGS__)
 
 
-#define HZ_ERRO(...)	::Hazel::Log::GetClientLogger()->erro(__VA_ARGS__)
+#define HZ_ERRO(...)	::Hazel::Log::GetClientLogger()->error(__VA_ARGS__)
 #define HZ_WARN(...)	::Hazel::Log::GetClientLogger()->warn(__VA_ARGS__)
 #define HZ_INFO(...)	::Hazel::Log::GetClientLogger()->info(__VA_ARGS__)
 #define HZ_TRACE(...)	::Hazel::Log::GetClientLogger()->trace(__VA_ARGS__)

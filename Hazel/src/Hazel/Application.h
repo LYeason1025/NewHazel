@@ -6,6 +6,15 @@
 #include "LayerStack.h"
 
 
+#include <Hazel/ImGui/ImGuiLayer.h>
+
+#include "Hazel/Renderer/Shader.h"
+#include "Renderer/Buffer.h"
+#include "Renderer/VertexArray.h"
+
+#include "Renderer/OrthographicCamera.h"
+
+
 namespace Hazel {
 
 
@@ -27,12 +36,18 @@ namespace Hazel {
 
 	private:
 		std::unique_ptr<Window> m_Window;
+		ImGuiLayer* m_ImGuiLayer;
 		bool m_Running = true;
 		bool OnWindowCloseEvent(Event& e);
 
 		LayerStack m_LayerStack;
+
+		float m_LastFrameTime;
+
+		
 	private:
 		static Application* s_Instance;
+
 	};
 
 	Application* CreateApplication();

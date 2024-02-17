@@ -13,20 +13,14 @@ public:
 	ImGuiLayer();
 	~ImGuiLayer();
 	
-	 void OnAttach();
-	 void DeAttach();
-	 void OnUpdate();
-	 void OnEvent(Event& event);
-private:
-	bool OnMouseButtonPreesedEvent(MouseButtonPressedEvent& e);
-	bool OnMouseButtonReleasedEvent(MouseButtonReleasedEvent& e);
-	bool OnMouseMovedEvent(MouseMovedEvent& e);
-	bool OnMouseScrolledEvent(MouseScrolledEvent& e);
+	 virtual void OnAttach() override;
+	 virtual void DeAttach() override;
+	 virtual void OnImGuiRender() override;
 
-	bool OnKeyReleasedEvent(KeyReleasedEvent& e);
-	bool OnKeyTypedEvent(KeyTypedEvent& e);
 
-	bool OnWindowResizeEvent(WindowResizeEvent& e);
+	 void Begin();
+	 void End();
+
 private:
 	float m_Time = 0.0f;
 };

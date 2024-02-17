@@ -17,9 +17,10 @@ workspace "Hazel"
 
 project "Hazel"
     location "Hazel"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
-    staticruntime "Off"	
+    cppdialect "C++17"
+    staticruntime "On"	
 
    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -33,6 +34,11 @@ project "Hazel"
 
         "%{prj.name}/vendor/glm/glm/**.hpp",
 		"%{prj.name}/vendor/glm/glm/**.inl"
+    }
+
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS"
     }
 
     includedirs
@@ -54,16 +60,15 @@ project "Hazel"
         "opengl32.lib"
     }
     filter "system:windows"
-        cppdialect "C++17"
         -- staticruntime "on"
         systemversion "latest"
 
-        defines { "HZ_PLATFORM_WINDOWS", "HZ_BUILD_DLL","GLFW_INCLUDE_NONE"}
+        defines { "HZ_PLATFORM_WINDOWS", "HZ_BUILD_DLL","GLFW_INCLUDE_NONE",}
 
-    postbuildcommands 
-    {
-        ( "{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-    }
+    -- postbuildcommands 
+    -- {
+    --     ( "{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+    -- }
 
     filter "configurations:Debug"
         defines  "HZ_DEBUG" 
@@ -88,8 +93,9 @@ project "Hazel"
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
+    cppdialect "C++17"
     language "C++"
-    staticruntime "Off"
+    staticruntime "On"
 
    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -103,21 +109,21 @@ project "Sandbox"
     {
         "Hazel/vendor/spdlog/include",
         "Hazel/src",
-        "%{IncludeDir.glm}"
+        "Hazel/vendor",
+        "%{IncludeDir.glm}",
     }
 
 
     links
     {
-        "Hazel"
+        "Hazel",
     }
 
     filter "system:windows"
-        cppdialect "C++17"
         -- staticruntime "On"
         systemversion "latest"
 
-        defines { "HZ_PLATFORM_WINDOWS"}
+        defines { "HZ_PLATFORM_WINDOWS",}
 
     filter "configurations:Debug"
         defines { "HZ_DEBUG" }
